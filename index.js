@@ -4,7 +4,7 @@ const session = require('express-session')
 const RedisStore = require('connect-redis')(session)
 const _ = require('lodash')
 
-const oneHour = 3600000
+const oneHour = 3600 // time in seconds!
 
 const defaults = {
   useRedis: false,
@@ -16,7 +16,7 @@ const defaults = {
   },
   sessionOptions: {
     secret: '',
-    resave: false,
+    resave: true, // update time to live on usage
     saveUninitialized: false
   }
 }

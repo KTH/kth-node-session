@@ -1,6 +1,6 @@
 {
   "name": "kth-node-session",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A Node.js module for setting up session middleware for Express.js apps.",
   "main": "index.js",
   "scripts": {

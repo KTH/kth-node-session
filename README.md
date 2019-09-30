@@ -1,4 +1,4 @@
-# kth-node-session
+# kth-node-session [![Build Status](https://travis-ci.org/KTH/kth-node-session.svg?branch=master)](https://travis-ci.org/KTH/kth-node-session)
 
 A Node.js module for setting up session middleware for Express.js apps.
 

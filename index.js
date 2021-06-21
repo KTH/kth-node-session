@@ -12,13 +12,14 @@ const defaults = {
   redisOptions: {
     host: 'localhost',
     port: 6379,
-    ttl: oneHour
+    ttl: oneHour,
   },
   sessionOptions: {
     secret: '',
     resave: true, // update time to live on usage
-    saveUninitialized: false
-  }
+    saveUninitialized: false,
+    cookie: { secure: true, httpOnly: true, sameSite: 'strict', path: '/' },
+  },
 }
 
 module.exports = function (options) {

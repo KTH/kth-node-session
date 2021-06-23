@@ -18,7 +18,7 @@ const defaults = {
     secret: '',
     resave: true, // update time to live on usage
     saveUninitialized: false,
-    cookie: { secure: true, httpOnly: true, sameSite: 'strict', path: '/' },
+    cookie: { secure: true, httpOnly: true, sameSite: 'Lax', path: '/' },
   },
 }
 

@@ -19,8 +19,9 @@ const defaults = {
     resave: true, // update time to live on usage
     saveUninitialized: false,
     cookie: { secure: true, httpOnly: true, sameSite: 'Lax', path: '/' },
+    proxy: true,
   },
-  proxy:true,
+  
 }
 
 module.exports = function (options) {

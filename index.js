@@ -20,6 +20,7 @@ const defaults = {
     saveUninitialized: false,
     cookie: { secure: true, httpOnly: true, sameSite: 'Lax', path: '/' },
   },
+  proxy:true,
 }
 
 module.exports = function (options) {

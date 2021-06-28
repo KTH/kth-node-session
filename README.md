@@ -37,9 +37,24 @@ const options = {
 
     // this should not be set when enabling Redis
     // or if using the default value
-    store: null
-  }
+    store: null,
+  },
 }
 
 app.use(session(options))
 ```
+
+### Default cookie settings
+
+The cookie has the following defult settings but each value can be overridden if needed:
+
+```javascript
+cookie: {
+  secure: true,
+  httpOnly: true,
+  sameSite: 'Lax',
+  path: '/'
+},
+```
+
+The path attribute is preferably set to a more specific path so the cookie only is available where it´s needed.

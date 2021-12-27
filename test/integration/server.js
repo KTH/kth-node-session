@@ -1,21 +1,25 @@
 'use strict'
 
+/*eslint-disable */
+
 const express = require('express')
 const url = require('url')
 const session = require('../../index')
 const app = express()
 
-app.use(session({
-  useRedis: true,
-  key: 'test.sid',
-  sessionOptions: {
-    secret: 'hello',
-    cookie: {
-      // should be true in production (requires https)
-      secure: false
-    }
-  }
-}))
+app.use(
+  session({
+    useRedis: true,
+    key: 'test.sid',
+    sessionOptions: {
+      secret: 'hello',
+      cookie: {
+        // should be true in production (requires https)
+        secure: false,
+      },
+    },
+  })
+)
 
 app.use((req, res, next) => {
   if (req.url === '/') {

@@ -13,7 +13,6 @@ const defaults = {
   redisOptions: {
     host: 'localhost',
     port: 6379,
-    ttl: oneHour,
   },
   sessionOptions: {
     secret: '',
@@ -71,7 +70,7 @@ module.exports = function nodeSession(inOptions) {
 
   if (options.useRedis) {
     redisClient = redis.createClient(options.redisOptions)
-    options.sessionOptions.store = new RedisStore({ client: redisClient })
+    options.sessionOptions.store = new RedisStore({ client: redisClient, ttl: oneHour })
   }
   return session(options.sessionOptions)
 }

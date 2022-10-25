@@ -21,6 +21,9 @@ const defaults = {
     cookie: { secure: true, httpOnly: true, sameSite: 'Lax', path: '/' },
     proxy: true,
   },
+  storeOptions: {
+    ttl: oneHour,
+  },
 }
 let redisClient
 
@@ -70,7 +73,7 @@ module.exports = function nodeSession(inOptions) {
 
   if (options.useRedis) {
     redisClient = redis.createClient(options.redisOptions)
-    options.sessionOptions.store = new RedisStore({ client: redisClient, ttl: oneHour })
+    options.sessionOptions.store = new RedisStore({ ...options.storeOptions, client: redisClient })
   }
   return session(options.sessionOptions)
 }

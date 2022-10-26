@@ -17,12 +17,12 @@ const session = require('@kth/session')
 const app = express()
 
 const options = {
-  // set to true to enable session storage in RedisStore
-  // default is to use MemoryStore
+  // Set to true to enable session storage in RedisStore.
+  // Default is to use MemoryStore.
   useRedis: false,
 
-  // this is used as redis prefix and session cookie name
-  // must be set here or as individual settings for redis (prefix) and session (name)
+  // This is used as redis prefix and session cookie name.
+  // Must be set here or as individual settings for redis (prefix) and session (name).
   key: 'node-app.sid',
 
   // https://www.npmjs.com/package/connect-redis
@@ -32,12 +32,18 @@ const options = {
 
   // https://www.npmjs.com/package/express-session
   sessionOptions: {
-    // secret must be set!
+    // Secret must be set!
     secret: 'my-secret-string',
 
-    // this should not be set when enabling Redis
-    // or if using the default value
+    // This should not be set when enabling Redis,
+    // or if using the default value.
     store: null,
+  },
+  // Optional. Currently only used for RedisStore.
+  storeOptions: {
+    // Time in seconds.
+    // Default value is 3600, i.e. one hour.
+    ttl: 14400,
   },
 }
 

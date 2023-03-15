@@ -1,5 +1,7 @@
 jest.mock('redis', () => ({
-  createClient: jest.fn().mockImplementation(() => ({})),
+  createClient: jest.fn().mockImplementation(() => ({
+    on: jest.fn(),
+  })),
 }))
 
 describe(`Session`, () => {

@@ -73,6 +73,12 @@ module.exports = function nodeSession(inOptions) {
 
   if (options.useRedis) {
     redisClient = redis.createClient(options.redisOptions)
+
+    redisClient.on('error', err => {
+      err.cause = '@kth/session redisCLient.on.error'
+      throw err
+    })
+
     options.sessionOptions.store = new RedisStore({ ...options.storeOptions, client: redisClient })
   }
   return session(options.sessionOptions)

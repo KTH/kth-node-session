@@ -1,8 +1,7 @@
 {
   "name": "@kth/session",
-  "version": "3.0.0",
+  "version": "3.0.8",
   "description": "A Node.js module for setting up session middleware for Express.js apps.",
-  "automaticPublish": "true",
   "main": "index.js",
   "author": {
     "name": "KTH",

@@ -74,13 +74,12 @@ module.exports = function nodeSession(inOptions) {
   if (options.useRedis) {
     redisClient = createClient('session', options.redisOptions)
 
-    redisClient
-      .connect()
-
-      .catch(error => {
-        console.error('@kth/session redisCLient.connect.error', error)
-        process.exit(1)
+    redisClient.connect().catch(error => {
+      process.nextTick(() => {
+        // force an "exception" rather than an "unhandled rejection"
+        throw new Error('@kth/session redisCLient.connect.error', { cause: error })
       })
+    })
 
     options.sessionOptions.store = new RedisStore({ ...options.storeOptions, client: redisClient })
   }

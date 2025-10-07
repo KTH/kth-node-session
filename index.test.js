@@ -58,11 +58,9 @@ describe(`Session`, () => {
     expect(session).not.toBeUndefined()
     expect(session.constructor.name).toBe('Function')
   })
-  test('should exit application if redis fails to connect', async () => {
-    // This test is a bit messy. If redisClient fails to connect, the application exits, but that happens AFTER createSession has returned
-    const mockExit = jest.spyOn(process, 'exit').mockImplementation(number => {
-      console.log('Mock process.exit with code', number)
-    })
+  test('should force an exception if redisClient.connect fails', async () => {
+    const RedisError = new Error('connect failed')
+    mockRedisClient.connect.mockRejectedValue(RedisError)
 
     const options = {
       key: 'MY_REDIS',
@@ -72,21 +70,33 @@ describe(`Session`, () => {
       useRedis: true,
     }
 
-    await new Promise((resolve, reject) => {
-      mockRedisClient.connect.mockRejectedValue('fail')
-      createSession(options)
-
-      setTimeout(() => {
-        try {
-          expect(mockExit).toHaveBeenCalledWith(1)
-          mockExit.mockRestore()
-          resolve()
-        } catch (e) {
-          console.log(e)
-          mockExit.mockRestore()
-          reject('Test failed')
-        }
-      }, 10)
+    let nextTickFunction
+    const nextTickSpy = jest.spyOn(process, 'nextTick').mockImplementation(fn => {
+      nextTickFunction = fn // capture but don't run yet
     })
+
+    createSession(options)
+
+    // Wait for the next tick to let the async throw happen
+    await new Promise(resolve => setImmediate(resolve))
+
+    // Check that process.nextTick has been executed
+    expect(nextTickSpy).toHaveBeenCalled()
+    expect(typeof nextTickFunction).toBe('function')
+
+    // Catch the error that gets thrown in process.nextTick
+    const thrownError = (() => {
+      try {
+        nextTickFunction()
+      } catch (err) {
+        return err
+      }
+    })()
+
+    expect(thrownError).toBeInstanceOf(Error)
+    expect(thrownError.message).toContain('@kth/session redisCLient.connect.error')
+    expect(thrownError.cause).toBe(RedisError)
+
+    nextTickSpy.mockRestore()
   })
 })

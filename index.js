@@ -1,8 +1,8 @@
 'use strict'
 
 const session = require('express-session')
-const RedisStore = require('connect-redis')(session)
-const redis = require('redis')
+const { RedisStore } = require('connect-redis')
+const { createClient } = require('kth-node-redis')
 
 const oneHour = 3600 // time in seconds!
 
@@ -51,9 +51,9 @@ function createOptions(options) {
 module.exports = function nodeSession(inOptions) {
   const options = createOptions(inOptions, defaults)
 
-  if (!options.redisOptions.prefix) {
+  if (!options.storeOptions.prefix) {
     if (options.key) {
-      options.redisOptions.prefix = `${options.key}:`
+      options.storeOptions.prefix = `${options.key}:`
     } else {
       throw new Error('No Redis prefix provided, "options.key" must be set.')
     }
@@ -72,14 +72,17 @@ module.exports = function nodeSession(inOptions) {
   }
 
   if (options.useRedis) {
-    redisClient = redis.createClient(options.redisOptions)
+    redisClient = createClient('session', options.redisOptions)
 
-    redisClient.on('error', err => {
-      err.cause = '@kth/session redisCLient.on.error'
-      throw err
+    redisClient.connect().catch(error => {
+      process.nextTick(() => {
+        // force an "exception" rather than an "unhandled rejection"
+        throw new Error('@kth/session redisCLient.connect.error', { cause: error })
+      })
     })
 
     options.sessionOptions.store = new RedisStore({ ...options.storeOptions, client: redisClient })
   }
+
   return session(options.sessionOptions)
 }

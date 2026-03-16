@@ -16,8 +16,8 @@
   },
   "homepage": "https://github.com/KTH/kth-node-session#readme",
   "scripts": {
-    "lint": "eslint \"**/*.js\" --quiet",
-    "lint-v": "eslint \"**/*.js\" ",
+    "lint": "eslint --quiet",
+    "lint-v": "eslint",
     "test": "jest",
     "test:watch": "jest --watch",
     "build": "./build.sh",
@@ -35,7 +35,7 @@
     "kth-node-redis": "^4.0.0"
   },
   "devDependencies": {
-    "@kth/eslint-config-kth": "^3.7.0",
+    "@kth/eslint-config-kth": "^4.0.0",
     "eslint": "^9.39.4",
     "express": "^5.2.1",
     "husky": "^9.1.7",

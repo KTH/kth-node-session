@@ -31,17 +31,17 @@
   "license": "MIT",
   "dependencies": {
     "connect-redis": "^9.0.0",
-    "express-session": "^1.18.2",
+    "express-session": "^1.19.0",
     "kth-node-redis": "^4.0.0"
   },
   "devDependencies": {
-    "@kth/eslint-config-kth": "^3.6.0",
-    "eslint": "^9.39.1",
+    "@kth/eslint-config-kth": "^3.7.0",
+    "eslint": "^9.39.4",
     "express": "^5.2.1",
     "husky": "^9.1.7",
-    "jest": "^30.2.0",
-    "lint-staged": "^16.2.7",
-    "prettier": "^3.7.4"
+    "jest": "^30.3.0",
+    "lint-staged": "^16.4.0",
+    "prettier": "^3.8.1"
   },
   "prettier": {
     "arrowParens": "avoid",

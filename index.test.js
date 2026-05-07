@@ -1,5 +1,6 @@
 const mockRedisClient = {
   connect: jest.fn(),
+  on: jest.fn(),
 }
 mockRedisClient.connect.mockResolvedValue(mockRedisClient)
 

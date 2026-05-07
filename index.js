@@ -81,6 +81,11 @@ module.exports = function nodeSession(inOptions) {
       })
     })
 
+    redisClient.on('end', () => {
+      console.error('Force app termination', new Error('@kth/session redisCLient.has_ended'))
+      process.exit(1)
+    })
+
     options.sessionOptions.store = new RedisStore({ ...options.storeOptions, client: redisClient })
   }
 

@@ -2,6 +2,12 @@
 
 All notable changes for major version updates will be documented here.
 
+## 3.2.0
+
+### Breaking
+
+Host application will shutdown if redis connection is lost and not recovered.
+
 ## 3.1.0
 
 ### Changed

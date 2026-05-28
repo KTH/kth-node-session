@@ -35,16 +35,16 @@
   "dependencies": {
     "connect-redis": "^9.0.0",
     "express-session": "^1.19.0",
-    "kth-node-redis": "^4.0.0"
+    "kth-node-redis": "^4.1.0"
   },
   "devDependencies": {
     "@kth/eslint-config-kth": "^4.0.0",
     "eslint": "^9.39.4",
     "express": "^5.2.1",
     "husky": "^9.1.7",
-    "jest": "^30.3.0",
+    "jest": "^30.4.2",
     "lint-staged": "^16.4.0",
-    "prettier": "^3.8.1"
+    "prettier": "^3.8.3"
   },
   "prettier": {
     "arrowParens": "avoid",
